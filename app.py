@@ -51,22 +51,21 @@ def delete_task(tasks):
 
 def main():
     st.title("Task Manager")
-    tasks = {}
-
-    while True:
-        option = display_menu()
-        
-        if option == "View tasks":
-            view_task(tasks)
-        elif option == "Add new task":
-            add_new_task(tasks)
-        elif option == "Search for a task":
-            search_for_task(tasks)
-        elif option == "Delete task":
-            delete_task(tasks)
-        elif option == "Exit":
-            st.write("Thank you for using our task manager. Goodbye!")
-            break
+    if 'tasks' not in st.session_state:
+        st.session_state.tasks = {}
+    
+    option = display_menu()
+    
+    if option == "View tasks":
+        view_task(st.session_state.tasks)
+    elif option == "Add new task":
+        add_new_task(st.session_state.tasks)
+    elif option == "Search for a task":
+        search_for_task(st.session_state.tasks)
+    elif option == "Delete task":
+        delete_task(st.session_state.tasks)
+    elif option == "Exit":
+        st.write("Thank you for using our task manager. Goodbye!")
 
 if __name__ == "__main__":
     main()
